@@ -3,21 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHANNON DID A TASK</title>
+<title>Shannon.</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Comic+Neue:wght@700&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  /* ========== DIGNIFIED LANDING PAGE ========== */
+  #landing {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 10000;
+    background: #fafaf8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  #landing.goodbye {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+  }
+
+  #landing h1 {
+    font-size: 64px;
+    font-weight: 400;
+    color: #2a2a2a;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  #landing .subtitle {
+    font-size: 20px;
+    font-style: italic;
+    color: #888;
+    letter-spacing: 3px;
+    margin-bottom: 60px;
+  }
+
+  #landing .divider {
+    width: 60px;
+    height: 1px;
+    background: #ccc;
+    margin-bottom: 60px;
+  }
+
+  #landing button {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #555;
+    background: none;
+    border: 1px solid #ccc;
+    padding: 16px 48px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  #landing button:hover {
+    color: #2a2a2a;
+    border-color: #2a2a2a;
+  }
+
+  /* ========== CHAOS (hidden until launched) ========== */
+  #chaos {
+    display: none;
+  }
+
+  #chaos.active {
+    display: block;
+  }
+
   body {
     font-family: 'Comic Sans MS', 'Comic Neue', cursive;
-    background: #ff00ff;
+    background: #fafaf8;
     overflow-x: hidden;
+  }
+
+  body.chaos-mode {
+    background: #ff00ff;
     cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='28' font-size='28'>⭐</text></svg>"), auto;
   }
 
   /* Tiled star background */
-  body::before {
+  body.chaos-mode::before {
     content: '';
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -76,10 +151,10 @@
     to { transform: translateX(100vw); }
   }
 
-  .scroll-left { display: inline-block; animation: scrollLeft 12s linear infinite; }
-  .scroll-left-slow { display: inline-block; animation: scrollLeft 18s linear infinite; }
-  .scroll-right { display: inline-block; animation: scrollRight 10s linear infinite; }
-  .scroll-right-slow { display: inline-block; animation: scrollRight 15s linear infinite; }
+  .scroll-left { display: inline-block; animation: scrollLeft 25s linear infinite; }
+  .scroll-left-slow { display: inline-block; animation: scrollLeft 35s linear infinite; }
+  .scroll-right { display: inline-block; animation: scrollRight 22s linear infinite; }
+  .scroll-right-slow { display: inline-block; animation: scrollRight 30s linear infinite; }
 
   /* HERO SECTION */
   .hero {
@@ -116,7 +191,7 @@
   /* PHOTO GALLERY OF CHAOS */
   .chaos-zone {
     position: relative;
-    min-height: 800px;
+    min-height: 600px;
     overflow: hidden;
     padding: 20px;
   }
@@ -138,7 +213,7 @@
   .photo-spin {
     width: 300px; height: 300px;
     left: calc(50% - 150px);
-    top: 50px;
+    top: 10px;
     animation: spinZoom 4s ease-in-out infinite;
     border-radius: 50%;
     border: 12px ridge hotpink;
@@ -155,7 +230,7 @@
   /* Photo 2: Sliding left to right */
   .photo-slide {
     width: 250px; height: 250px;
-    top: 400px;
+    top: 200px;
     animation: slideAcross 6s ease-in-out infinite alternate;
   }
 
@@ -168,7 +243,7 @@
   .photo-bounce {
     width: 200px; height: 200px;
     right: 50px;
-    top: 100px;
+    top: 20px;
     animation: bounceIt 2s ease-in-out infinite;
   }
 
@@ -181,7 +256,7 @@
   .photo-ken {
     width: 350px; height: 250px;
     left: 30px;
-    top: 150px;
+    top: 30px;
     animation: kenBurns 8s ease-in-out infinite alternate;
   }
 
@@ -194,7 +269,7 @@
   .photo-wobble {
     width: 220px; height: 220px;
     right: 30px;
-    top: 500px;
+    top: 320px;
     animation: wobble 1.5s ease-in-out infinite;
   }
 
@@ -210,7 +285,7 @@
   .photo-glow {
     width: 280px; height: 280px;
     left: calc(50% - 140px);
-    top: 450px;
+    top: 280px;
     animation: glowPulse 2s ease-in-out infinite;
     border-color: #00ff00;
   }
@@ -289,6 +364,11 @@
     pointer-events: none;
     z-index: 999;
     overflow: hidden;
+    display: none;
+  }
+
+  .star-rain.active {
+    display: block;
   }
 
   .falling-star {
@@ -318,17 +398,6 @@
   .visitor-counter span {
     color: #ff0;
     font-size: 24px;
-  }
-
-  /* Under construction */
-  .construction {
-    text-align: center;
-    padding: 20px;
-    font-size: 24px;
-    color: #ffff00;
-    background: repeating-linear-gradient(45deg, #000, #000 20px, #ffff00 20px, #ffff00 40px);
-    -webkit-background-clip: text;
-    background-clip: text;
   }
 
   .construction-bar {
@@ -404,33 +473,6 @@
     margin-top: 20px;
   }
 
-  /* Music button */
-  .music-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-    font-family: 'Comic Sans MS', cursive;
-    font-size: 20px;
-    padding: 15px 25px;
-    background: linear-gradient(to bottom, #ff0, #f90);
-    border: 4px outset #ffd700;
-    cursor: pointer;
-    color: #000;
-    font-weight: bold;
-    animation: btnPulse 1s ease-in-out infinite;
-  }
-
-  @keyframes btnPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-  }
-
-  .music-btn:hover {
-    background: linear-gradient(to bottom, #f90, #f00);
-    color: #fff;
-  }
-
   /* Rainbow divider */
   .rainbow-hr {
     height: 15px;
@@ -459,15 +501,17 @@
 
   /* Responsive tweaks */
   @media (max-width: 768px) {
+    #landing h1 { font-size: 36px; letter-spacing: 4px; }
+    #landing .subtitle { font-size: 16px; }
     .hero h1 { font-size: 48px; }
     .hero h2 { font-size: 24px; }
-    .chaos-zone { min-height: 600px; }
+    .chaos-zone { min-height: 500px; }
     .photo-spin { width: 200px; height: 200px; left: calc(50% - 100px); }
-    .photo-slide { width: 150px; height: 150px; top: 300px; }
+    .photo-slide { width: 150px; height: 150px; top: 180px; }
     .photo-bounce { width: 130px; height: 130px; }
     .photo-ken { width: 200px; height: 150px; }
-    .photo-wobble { width: 150px; height: 150px; }
-    .photo-glow { width: 180px; height: 180px; left: calc(50% - 90px); }
+    .photo-wobble { width: 150px; height: 150px; top: 250px; }
+    .photo-glow { width: 180px; height: 180px; left: calc(50% - 90px); top: 220px; }
     .certificate .name { font-size: 36px; }
     .sarcasm p { font-size: 22px; }
   }
@@ -475,154 +519,185 @@
 </head>
 <body>
 
-<!-- FALLING STAR RAIN -->
-<div class="star-rain" id="starRain"></div>
-
-<!-- MUSIC -->
-<audio id="bgMusic" loop>
-  <source src="music/background.mp3" type="audio/mpeg">
-</audio>
-
-<button class="music-btn" id="musicBtn" onclick="toggleMusic()">
-  🔊 PLAY THE ANTHEM
-</button>
-
-<!-- CONSTRUCTION BAR -->
-<div class="construction-bar"></div>
-
-<!-- MARQUEE 1 -->
-<div class="marquee-top">
-  <span class="scroll-left">⭐ SHANNON DID A TASK ⭐ SHANNON DID A TASK ⭐ SHANNON DID A TASK ⭐ ALERT: TASK WAS DONE ⭐ THIS IS NOT A DRILL ⭐ SHANNON DID A TASK ⭐</span>
+<!-- ========== DIGNIFIED LANDING PAGE ========== -->
+<div id="landing">
+  <h1>Shannon</h1>
+  <div class="subtitle">A Tribute</div>
+  <div class="divider"></div>
+  <button onclick="unleashChaos()">View Presentation</button>
 </div>
 
-<!-- HERO -->
-<div class="hero">
-  <h1>🏆 SHANNON<br>DID A TASK 🏆</h1>
-  <h2>⚡ THE WORLD WILL NEVER BE THE SAME ⚡</h2>
-</div>
+<!-- ========== THE CHAOS (hidden until button click) ========== -->
+<div id="chaos">
 
-<!-- MARQUEE 2 -->
-<div class="marquee-mid">
-  <span class="scroll-right">📣 BREAKING NEWS 📣 LOCAL WOMAN REPORTEDLY "LOGGED HER PURCHASES" 📣 HISTORIANS SCRAMBLE TO RECORD THE MOMENT 📣 NOBEL COMMITTEE CONVENES EMERGENCY SESSION 📣</span>
-</div>
+  <!-- FALLING STAR RAIN -->
+  <div class="star-rain" id="starRain"></div>
 
-<div class="rainbow-hr"></div>
+  <!-- MUSIC -->
+  <audio id="bgMusic" loop>
+    <source src="music/background.mp3" type="audio/mpeg">
+  </audio>
 
-<!-- SARCASM BLOCK 1 -->
-<div class="sarcasm">
-  <p>🌟 The Prophecy Has Been Fulfilled 🌟</p>
-  <p>She actually... did it. She logged her purchases.</p>
-  <p>🎺 Sound the trumpets. 🎺</p>
-</div>
+  <!-- CONSTRUCTION BAR -->
+  <div class="construction-bar"></div>
 
-<!-- PHOTO CHAOS ZONE -->
-<div class="chaos-zone">
-  <div class="photo-frame photo-spin">
-    <img src="images/shannon1.jpg" alt="Shannon, hero of our time">
+  <!-- MARQUEE 1 -->
+  <div class="marquee-top">
+    <span class="scroll-left">⭐ SHANNON DID A TASK ⭐ SHANNON DID A TASK ⭐ SHANNON DID A TASK ⭐ ALERT: TASK WAS DONE ⭐ THIS IS NOT A DRILL ⭐ SHANNON DID A TASK ⭐</span>
   </div>
-  <div class="photo-frame photo-slide">
-    <img src="images/shannon1.jpg" alt="Shannon in motion">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>🏆 SHANNON<br>DID A TASK 🏆</h1>
+    <h2>⚡ THE WORLD WILL NEVER BE THE SAME ⚡</h2>
   </div>
-  <div class="photo-frame photo-bounce">
-    <img src="images/shannon1.jpg" alt="Shannon ascending">
+
+  <!-- MARQUEE 2 -->
+  <div class="marquee-mid">
+    <span class="scroll-right">📣 BREAKING NEWS 📣 LOCAL WOMAN REPORTEDLY "LOGGED HER PURCHASES" 📣 HISTORIANS SCRAMBLE TO RECORD THE MOMENT 📣 NOBEL COMMITTEE CONVENES EMERGENCY SESSION 📣</span>
   </div>
-  <div class="photo-frame photo-ken">
-    <img src="images/shannon1.jpg" alt="A cinematic Shannon">
+
+  <div class="rainbow-hr"></div>
+
+  <!-- SARCASM BLOCK 1 -->
+  <div class="sarcasm">
+    <p>🌟 The Prophecy Has Been Fulfilled 🌟</p>
+    <p>She actually... did it. She logged her purchases.</p>
+    <p>🎺 Sound the trumpets. 🎺</p>
   </div>
-  <div class="photo-frame photo-wobble">
-    <img src="images/shannon1.jpg" alt="Shannon cannot be contained">
+
+  <!-- PHOTO CHAOS ZONE -->
+  <div class="chaos-zone">
+    <div class="photo-frame photo-spin">
+      <img src="images/shannon1.jpg" alt="Shannon, hero of our time">
+    </div>
+    <div class="photo-frame photo-slide">
+      <img src="images/shannon1.jpg" alt="Shannon in motion">
+    </div>
+    <div class="photo-frame photo-bounce">
+      <img src="images/shannon1.jpg" alt="Shannon ascending">
+    </div>
+    <div class="photo-frame photo-ken">
+      <img src="images/shannon1.jpg" alt="A cinematic Shannon">
+    </div>
+    <div class="photo-frame photo-wobble">
+      <img src="images/shannon1.jpg" alt="Shannon cannot be contained">
+    </div>
+    <div class="photo-frame photo-glow">
+      <img src="images/shannon1.jpg" alt="Shannon radiates power">
+    </div>
   </div>
-  <div class="photo-frame photo-glow">
-    <img src="images/shannon1.jpg" alt="Shannon radiates power">
+
+  <div class="rainbow-hr"></div>
+
+  <!-- MARQUEE 3 -->
+  <div class="marquee-bottom">
+    <span class="scroll-left-slow">>>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>></span>
   </div>
-</div>
 
-<div class="rainbow-hr"></div>
+  <!-- FIRE TEXT -->
+  <div class="fire-text">
+    🔥 SHE WANTS TO KNOW WHAT SHE GETS 🔥
+  </div>
 
-<!-- MARQUEE 3 -->
-<div class="marquee-bottom">
-  <span class="scroll-left-slow">>>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>></span>
-</div>
+  <!-- GOLD STAR SECTION -->
+  <div class="gold-star-zone">
+    <h2>YOU GET A GOLD STAR</h2>
+    <div><span class="gold-star">⭐</span></div>
+    <h2 style="font-size: 28px; margin-top: 20px;">THAT'S IT. THAT'S WHAT YOU GET.</h2>
+  </div>
 
-<!-- FIRE TEXT -->
-<div class="fire-text">
-  🔥 SHE WANTS TO KNOW WHAT SHE GETS 🔥
-</div>
+  <div class="rainbow-hr"></div>
 
-<!-- GOLD STAR SECTION -->
-<div class="gold-star-zone">
-  <h2>YOU GET A GOLD STAR</h2>
-  <div><span class="gold-star">⭐</span></div>
-  <h2 style="font-size: 28px; margin-top: 20px;">THAT'S IT. THAT'S WHAT YOU GET.</h2>
-</div>
+  <!-- SARCASM BLOCK 2 -->
+  <div class="sarcasm">
+    <p>🏅 "What do I get?" 🏅</p>
+    <p>You get the satisfaction of basic financial responsibility.</p>
+    <p>You get this website, which cost more effort than logging purchases.</p>
+    <p>You get my undying admiration (valid for 24 hours).</p>
+    <p>🎖️ You get to do it again next month. 🎖️</p>
+  </div>
 
-<div class="rainbow-hr"></div>
+  <!-- MARQUEE 4 -->
+  <div class="marquee-mid" style="background: linear-gradient(90deg, #ff0, #f00, #ff0);">
+    <span class="scroll-right-slow">🏆 EMPLOYEE OF THE MONTH 🏆 PURCHASE LOGGER EXTRAORDINAIRE 🏆 KEEPER OF RECEIPTS 🏆 QUEEN OF THE SPREADSHEET 🏆</span>
+  </div>
 
-<!-- SARCASM BLOCK 2 -->
-<div class="sarcasm">
-  <p>🏅 "What do I get?" 🏅</p>
-  <p>You get the satisfaction of basic financial responsibility.</p>
-  <p>You get this website, which cost more effort than logging purchases.</p>
-  <p>You get my undying admiration (valid for 24 hours).</p>
-  <p>🎖️ You get to do it again next month. 🎖️</p>
-</div>
+  <!-- CERTIFICATE -->
+  <div class="certificate">
+    <h3>This Certificate Is Hereby Awarded To</h3>
+    <div class="name">✨ Shannon ✨</div>
+    <h2>Certificate of Achievement</h2>
+    <p>For the heroic and unprecedented act of</p>
+    <p><strong>"Logging Her Purchases"</strong></p>
+    <p style="font-size: 16px; color: #888; margin-top: 20px;">
+      Witnessed this 16th day of February, 2026<br>
+      by her extremely impressed partner
+    </p>
+    <div class="seal">🏅</div>
+    <p style="font-size: 12px; color: #aaa; margin-top: 10px;">
+      *This certificate has no monetary value.<br>
+      Much like the effort required to log purchases.
+    </p>
+  </div>
 
-<!-- MARQUEE 4 -->
-<div class="marquee-mid" style="background: linear-gradient(90deg, #ff0, #f00, #ff0);">
-  <span class="scroll-right-slow">🏆 EMPLOYEE OF THE MONTH 🏆 PURCHASE LOGGER EXTRAORDINAIRE 🏆 KEEPER OF RECEIPTS 🏆 QUEEN OF THE SPREADSHEET 🏆</span>
-</div>
+  <div class="rainbow-hr"></div>
 
-<!-- CERTIFICATE -->
-<div class="certificate">
-  <h3>This Certificate Is Hereby Awarded To</h3>
-  <div class="name">✨ Shannon ✨</div>
-  <h2>Certificate of Achievement</h2>
-  <p>For the heroic and unprecedented act of</p>
-  <p><strong>"Logging Her Purchases"</strong></p>
-  <p style="font-size: 16px; color: #888; margin-top: 20px;">
-    Witnessed this 16th day of February, 2026<br>
-    by her extremely impressed partner
-  </p>
-  <div class="seal">🏅</div>
-  <p style="font-size: 12px; color: #aaa; margin-top: 10px;">
-    *This certificate has no monetary value.<br>
-    Much like the effort required to log purchases.
-  </p>
-</div>
+  <!-- SARCASM BLOCK 3 -->
+  <div class="sarcasm">
+    <p>In conclusion:</p>
+    <p>🌍 One small step for Shannon 🌍</p>
+    <p>🚀 One giant leap for household budgeting 🚀</p>
+  </div>
 
-<div class="rainbow-hr"></div>
+  <!-- MARQUEE FINAL -->
+  <div class="marquee-top" style="background: linear-gradient(90deg, #0f0, #0ff, #0f0);">
+    <span class="scroll-left">⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐</span>
+  </div>
 
-<!-- SARCASM BLOCK 3 -->
-<div class="sarcasm">
-  <p>In conclusion:</p>
-  <p>🌍 One small step for Shannon 🌍</p>
-  <p>🚀 One giant leap for household budgeting 🚀</p>
-</div>
+  <!-- VISITOR COUNTER -->
+  <div class="visitor-counter">
+    🖥️ You are visitor number: <span id="counter">000001</span><br>
+    <small>(It's just you. No one else knows about this page. Yet.)</small>
+  </div>
 
-<!-- MARQUEE FINAL -->
-<div class="marquee-top" style="background: linear-gradient(90deg, #0f0, #0ff, #0f0);">
-  <span class="scroll-left">⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐</span>
-</div>
+  <!-- CONSTRUCTION BAR -->
+  <div class="construction-bar"></div>
 
-<!-- VISITOR COUNTER -->
-<div class="visitor-counter">
-  🖥️ You are visitor number: <span id="counter">000001</span><br>
-  <small>(It's just you. No one else knows about this page. Yet.)</small>
-</div>
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Made with ❤️ and an unreasonable amount of sarcasm</p>
+    <p>© 2026 The Shannon Did A Task Foundation</p>
+    <p style="margin-top: 10px; font-size: 11px;">
+      Best viewed with Netscape Navigator 4.0 at 800x600 resolution
+    </p>
+  </div>
 
-<!-- CONSTRUCTION BAR -->
-<div class="construction-bar"></div>
-
-<!-- FOOTER -->
-<div class="footer">
-  <p>Made with ❤️ and an unreasonable amount of sarcasm</p>
-  <p>© 2026 The Shannon Did A Task Foundation</p>
-  <p style="margin-top: 10px; font-size: 11px;">
-    Best viewed with Netscape Navigator 4.0 at 800x600 resolution
-  </p>
-</div>
+</div><!-- end #chaos -->
 
 <script>
+function unleashChaos() {
+  // Fade out the dignified landing
+  const landing = document.getElementById('landing');
+  landing.classList.add('goodbye');
+
+  // After fade, reveal chaos
+  setTimeout(() => {
+    landing.style.display = 'none';
+    document.body.classList.add('chaos-mode');
+    document.getElementById('chaos').classList.add('active');
+    document.getElementById('starRain').classList.add('active');
+
+    // Start music
+    const audio = document.getElementById('bgMusic');
+    audio.play();
+
+    // Start star rain & counter
+    createStarRain();
+    animateCounter();
+  }, 800);
+}
+
 // Falling stars
 function createStarRain() {
   const container = document.getElementById('starRain');
@@ -640,22 +715,6 @@ function createStarRain() {
   }
 }
 
-// Music toggle
-let musicPlaying = false;
-function toggleMusic() {
-  const audio = document.getElementById('bgMusic');
-  const btn = document.getElementById('musicBtn');
-  if (musicPlaying) {
-    audio.pause();
-    btn.textContent = '🔊 PLAY THE ANTHEM';
-    musicPlaying = false;
-  } else {
-    audio.play();
-    btn.textContent = '🔇 PAUSE (but why would you)';
-    musicPlaying = true;
-  }
-}
-
 // Fake visitor counter increment
 function animateCounter() {
   const counter = document.getElementById('counter');
@@ -665,10 +724,6 @@ function animateCounter() {
     counter.textContent = String(count).padStart(6, '0');
   }, 3000);
 }
-
-// Init
-createStarRain();
-animateCounter();
 </script>
 
 </body>
