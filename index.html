@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHANNON DID A TASK</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Comic Sans MS', 'Comic Neue', cursive;
+    background: #ff00ff;
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='28' font-size='28'>⭐</text></svg>"), auto;
+  }
+
+  /* Tiled star background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,0,0.15) 35px, rgba(255,255,0,0.15) 70px),
+      repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(0,255,255,0.1) 35px, rgba(0,255,255,0.1) 70px),
+      linear-gradient(180deg, #ff00ff, #ff6600, #ffff00, #00ff00, #ff00ff);
+    background-size: 100% 100%, 100% 100%, 100% 300%;
+    animation: bgScroll 8s linear infinite;
+    z-index: -1;
+  }
+
+  @keyframes bgScroll {
+    0% { background-position: 0 0, 0 0, 0 0%; }
+    100% { background-position: 0 0, 0 0, 0 300%; }
+  }
+
+  /* MARQUEES */
+  .marquee-top {
+    background: linear-gradient(90deg, #ffff00, #ff0000, #ffff00);
+    color: #0000ff;
+    font-size: 42px;
+    font-weight: bold;
+    padding: 10px 0;
+    text-shadow: 3px 3px 0 #fff, -2px -2px 0 #000;
+    white-space: nowrap;
+    border-top: 5px dashed #00ff00;
+    border-bottom: 5px dashed #00ff00;
+  }
+
+  .marquee-mid {
+    background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
+    color: #ffff00;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 8px 0;
+    text-shadow: 2px 2px 0 #000;
+    white-space: nowrap;
+  }
+
+  .marquee-bottom {
+    background: #000;
+    color: #00ff00;
+    font-size: 20px;
+    padding: 6px 0;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  @keyframes scrollLeft {
+    from { transform: translateX(100vw); }
+    to { transform: translateX(-200%); }
+  }
+  @keyframes scrollRight {
+    from { transform: translateX(-200%); }
+    to { transform: translateX(100vw); }
+  }
+
+  .scroll-left { display: inline-block; animation: scrollLeft 12s linear infinite; }
+  .scroll-left-slow { display: inline-block; animation: scrollLeft 18s linear infinite; }
+  .scroll-right { display: inline-block; animation: scrollRight 10s linear infinite; }
+  .scroll-right-slow { display: inline-block; animation: scrollRight 15s linear infinite; }
+
+  /* HERO SECTION */
+  .hero {
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-size: 80px;
+    color: #ffff00;
+    text-shadow: 4px 4px 0 #ff0000, 8px 8px 0 #0000ff, -2px -2px 0 #000;
+    animation: heroGrow 1.5s ease-in-out infinite alternate;
+    line-height: 1.1;
+  }
+
+  @keyframes heroGrow {
+    0% { transform: scale(1) rotate(-2deg); }
+    100% { transform: scale(1.15) rotate(2deg); }
+  }
+
+  .hero h2 {
+    font-size: 36px;
+    color: #00ff00;
+    text-shadow: 2px 2px 0 #000;
+    margin-top: 10px;
+    animation: blinker 0.8s step-end infinite;
+  }
+
+  @keyframes blinker {
+    50% { opacity: 0; }
+  }
+
+  /* PHOTO GALLERY OF CHAOS */
+  .chaos-zone {
+    position: relative;
+    min-height: 800px;
+    overflow: hidden;
+    padding: 20px;
+  }
+
+  .photo-frame {
+    position: absolute;
+    border: 8px ridge gold;
+    box-shadow: 0 0 30px rgba(255,255,0,0.8), inset 0 0 20px rgba(255,0,255,0.5);
+    overflow: hidden;
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Photo 1: Spinning in center */
+  .photo-spin {
+    width: 300px; height: 300px;
+    left: calc(50% - 150px);
+    top: 50px;
+    animation: spinZoom 4s ease-in-out infinite;
+    border-radius: 50%;
+    border: 12px ridge hotpink;
+  }
+
+  @keyframes spinZoom {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(90deg) scale(1.3); }
+    50% { transform: rotate(180deg) scale(1); }
+    75% { transform: rotate(270deg) scale(1.3); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+
+  /* Photo 2: Sliding left to right */
+  .photo-slide {
+    width: 250px; height: 250px;
+    top: 400px;
+    animation: slideAcross 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes slideAcross {
+    0% { left: -260px; transform: rotate(-15deg); }
+    100% { left: calc(100% + 10px); transform: rotate(15deg); }
+  }
+
+  /* Photo 3: Bouncing */
+  .photo-bounce {
+    width: 200px; height: 200px;
+    right: 50px;
+    top: 100px;
+    animation: bounceIt 2s ease-in-out infinite;
+  }
+
+  @keyframes bounceIt {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-80px) scale(1.2); }
+  }
+
+  /* Photo 4: Ken Burns zoom */
+  .photo-ken {
+    width: 350px; height: 250px;
+    left: 30px;
+    top: 150px;
+    animation: kenBurns 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes kenBurns {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.5) translate(30px, -20px); }
+  }
+
+  /* Photo 5: Wobble */
+  .photo-wobble {
+    width: 220px; height: 220px;
+    right: 30px;
+    top: 500px;
+    animation: wobble 1.5s ease-in-out infinite;
+  }
+
+  @keyframes wobble {
+    0% { transform: rotate(-10deg) scale(0.9); }
+    25% { transform: rotate(10deg) scale(1.1); }
+    50% { transform: rotate(-10deg) scale(0.9); }
+    75% { transform: rotate(10deg) scale(1.1); }
+    100% { transform: rotate(-10deg) scale(0.9); }
+  }
+
+  /* Photo 6: pulsing glow */
+  .photo-glow {
+    width: 280px; height: 280px;
+    left: calc(50% - 140px);
+    top: 450px;
+    animation: glowPulse 2s ease-in-out infinite;
+    border-color: #00ff00;
+  }
+
+  @keyframes glowPulse {
+    0%, 100% {
+      box-shadow: 0 0 20px #ff0, 0 0 40px #f0f, 0 0 60px #0ff, 0 0 80px #ff0;
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 0 40px #f0f, 0 0 80px #ff0, 0 0 120px #0ff, 0 0 160px #f0f;
+      transform: scale(1.1);
+    }
+  }
+
+  /* Sarcastic text sections */
+  .sarcasm {
+    text-align: center;
+    padding: 30px 20px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .sarcasm p {
+    font-size: 32px;
+    color: #fff;
+    text-shadow: 3px 3px 0 #ff0000, -1px -1px 0 #000;
+    margin: 15px 0;
+    animation: textPop 3s ease-in-out infinite alternate;
+  }
+
+  .sarcasm p:nth-child(even) {
+    color: #ffff00;
+    text-shadow: 3px 3px 0 #0000ff, -1px -1px 0 #000;
+    animation-delay: 0.5s;
+  }
+
+  @keyframes textPop {
+    0% { transform: scale(1); letter-spacing: 0px; }
+    100% { transform: scale(1.05); letter-spacing: 3px; }
+  }
+
+  /* GOLD STAR SECTION */
+  .gold-star-zone {
+    text-align: center;
+    padding: 60px 20px;
+    background: repeating-linear-gradient(45deg, #ffd700, #ffd700 10px, #ffec80 10px, #ffec80 20px);
+    border: 10px double #ff0000;
+    margin: 20px;
+    position: relative;
+  }
+
+  .gold-star-zone h2 {
+    font-size: 60px;
+    color: #ff0000;
+    text-shadow: 3px 3px 0 #000;
+  }
+
+  .gold-star {
+    font-size: 120px;
+    display: inline-block;
+    animation: starSpin 2s linear infinite;
+    filter: drop-shadow(0 0 20px gold);
+  }
+
+  @keyframes starSpin {
+    from { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.3); }
+    to { transform: rotate(360deg) scale(1); }
+  }
+
+  /* Falling stars */
+  .star-rain {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 999;
+    overflow: hidden;
+  }
+
+  .falling-star {
+    position: absolute;
+    font-size: 30px;
+    animation: fall linear infinite;
+    opacity: 0.8;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0.3; }
+  }
+
+  /* Visitor counter */
+  .visitor-counter {
+    text-align: center;
+    padding: 20px;
+    background: #000;
+    color: #00ff00;
+    font-size: 18px;
+    border: 3px inset #808080;
+    margin: 20px auto;
+    max-width: 400px;
+  }
+
+  .visitor-counter span {
+    color: #ff0;
+    font-size: 24px;
+  }
+
+  /* Under construction */
+  .construction {
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    color: #ffff00;
+    background: repeating-linear-gradient(45deg, #000, #000 20px, #ffff00 20px, #ffff00 40px);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .construction-bar {
+    height: 30px;
+    background: repeating-linear-gradient(45deg, #000, #000 15px, #ffff00 15px, #ffff00 30px);
+    border: 3px solid #ff0000;
+  }
+
+  /* Fire text */
+  .fire-text {
+    font-size: 48px;
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(to top, #ff0000, #ff6600, #ffff00, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fireFlicker 0.3s infinite alternate;
+    font-weight: bold;
+  }
+
+  @keyframes fireFlicker {
+    0% { filter: brightness(1); }
+    100% { filter: brightness(1.3); }
+  }
+
+  /* Certificate section */
+  .certificate {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 40px;
+    background: #fffef0;
+    border: 15px double #c8a415;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(200,164,21,0.5);
+    transform: rotate(-1deg);
+    animation: certWobble 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes certWobble {
+    0% { transform: rotate(-1deg) scale(1); }
+    100% { transform: rotate(1deg) scale(1.02); }
+  }
+
+  .certificate h3 {
+    font-size: 16px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+  }
+
+  .certificate h2 {
+    font-size: 42px;
+    color: #8B0000;
+    margin: 10px 0;
+  }
+
+  .certificate .name {
+    font-size: 56px;
+    color: #c8a415;
+    text-shadow: 2px 2px 0 #000;
+    margin: 20px 0;
+  }
+
+  .certificate p {
+    font-size: 22px;
+    color: #333;
+    margin: 10px 0;
+  }
+
+  .certificate .seal {
+    font-size: 60px;
+    margin-top: 20px;
+  }
+
+  /* Music button */
+  .music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 20px;
+    padding: 15px 25px;
+    background: linear-gradient(to bottom, #ff0, #f90);
+    border: 4px outset #ffd700;
+    cursor: pointer;
+    color: #000;
+    font-weight: bold;
+    animation: btnPulse 1s ease-in-out infinite;
+  }
+
+  @keyframes btnPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  .music-btn:hover {
+    background: linear-gradient(to bottom, #f90, #f00);
+    color: #fff;
+  }
+
+  /* Rainbow divider */
+  .rainbow-hr {
+    height: 15px;
+    background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet, red);
+    background-size: 200% 100%;
+    animation: rainbowSlide 3s linear infinite;
+    border: none;
+    margin: 10px 0;
+  }
+
+  @keyframes rainbowSlide {
+    0% { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px;
+    background: #000;
+    color: #808080;
+    font-size: 14px;
+  }
+
+  .footer a { color: #00ff00; }
+
+  /* Responsive tweaks */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 48px; }
+    .hero h2 { font-size: 24px; }
+    .chaos-zone { min-height: 600px; }
+    .photo-spin { width: 200px; height: 200px; left: calc(50% - 100px); }
+    .photo-slide { width: 150px; height: 150px; top: 300px; }
+    .photo-bounce { width: 130px; height: 130px; }
+    .photo-ken { width: 200px; height: 150px; }
+    .photo-wobble { width: 150px; height: 150px; }
+    .photo-glow { width: 180px; height: 180px; left: calc(50% - 90px); }
+    .certificate .name { font-size: 36px; }
+    .sarcasm p { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FALLING STAR RAIN -->
+<div class="star-rain" id="starRain"></div>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="music/background.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+  🔊 PLAY THE ANTHEM
+</button>
+
+<!-- CONSTRUCTION BAR -->
+<div class="construction-bar"></div>
+
+<!-- MARQUEE 1 -->
+<div class="marquee-top">
+  <span class="scroll-left">⭐ SHANNON DID A TASK ⭐ SHANNON DID A TASK ⭐ SHANNON DID A TASK ⭐ ALERT: TASK WAS DONE ⭐ THIS IS NOT A DRILL ⭐ SHANNON DID A TASK ⭐</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>🏆 SHANNON<br>DID A TASK 🏆</h1>
+  <h2>⚡ THE WORLD WILL NEVER BE THE SAME ⚡</h2>
+</div>
+
+<!-- MARQUEE 2 -->
+<div class="marquee-mid">
+  <span class="scroll-right">📣 BREAKING NEWS 📣 LOCAL WOMAN REPORTEDLY "LOGGED HER PURCHASES" 📣 HISTORIANS SCRAMBLE TO RECORD THE MOMENT 📣 NOBEL COMMITTEE CONVENES EMERGENCY SESSION 📣</span>
+</div>
+
+<div class="rainbow-hr"></div>
+
+<!-- SARCASM BLOCK 1 -->
+<div class="sarcasm">
+  <p>🌟 The Prophecy Has Been Fulfilled 🌟</p>
+  <p>She actually... did it. She logged her purchases.</p>
+  <p>🎺 Sound the trumpets. 🎺</p>
+</div>
+
+<!-- PHOTO CHAOS ZONE -->
+<div class="chaos-zone">
+  <div class="photo-frame photo-spin">
+    <img src="images/shannon1.jpg" alt="Shannon, hero of our time">
+  </div>
+  <div class="photo-frame photo-slide">
+    <img src="images/shannon1.jpg" alt="Shannon in motion">
+  </div>
+  <div class="photo-frame photo-bounce">
+    <img src="images/shannon1.jpg" alt="Shannon ascending">
+  </div>
+  <div class="photo-frame photo-ken">
+    <img src="images/shannon1.jpg" alt="A cinematic Shannon">
+  </div>
+  <div class="photo-frame photo-wobble">
+    <img src="images/shannon1.jpg" alt="Shannon cannot be contained">
+  </div>
+  <div class="photo-frame photo-glow">
+    <img src="images/shannon1.jpg" alt="Shannon radiates power">
+  </div>
+</div>
+
+<div class="rainbow-hr"></div>
+
+<!-- MARQUEE 3 -->
+<div class="marquee-bottom">
+  <span class="scroll-left-slow">>>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>> DID A TASK >>></span>
+</div>
+
+<!-- FIRE TEXT -->
+<div class="fire-text">
+  🔥 SHE WANTS TO KNOW WHAT SHE GETS 🔥
+</div>
+
+<!-- GOLD STAR SECTION -->
+<div class="gold-star-zone">
+  <h2>YOU GET A GOLD STAR</h2>
+  <div><span class="gold-star">⭐</span></div>
+  <h2 style="font-size: 28px; margin-top: 20px;">THAT'S IT. THAT'S WHAT YOU GET.</h2>
+</div>
+
+<div class="rainbow-hr"></div>
+
+<!-- SARCASM BLOCK 2 -->
+<div class="sarcasm">
+  <p>🏅 "What do I get?" 🏅</p>
+  <p>You get the satisfaction of basic financial responsibility.</p>
+  <p>You get this website, which cost more effort than logging purchases.</p>
+  <p>You get my undying admiration (valid for 24 hours).</p>
+  <p>🎖️ You get to do it again next month. 🎖️</p>
+</div>
+
+<!-- MARQUEE 4 -->
+<div class="marquee-mid" style="background: linear-gradient(90deg, #ff0, #f00, #ff0);">
+  <span class="scroll-right-slow">🏆 EMPLOYEE OF THE MONTH 🏆 PURCHASE LOGGER EXTRAORDINAIRE 🏆 KEEPER OF RECEIPTS 🏆 QUEEN OF THE SPREADSHEET 🏆</span>
+</div>
+
+<!-- CERTIFICATE -->
+<div class="certificate">
+  <h3>This Certificate Is Hereby Awarded To</h3>
+  <div class="name">✨ Shannon ✨</div>
+  <h2>Certificate of Achievement</h2>
+  <p>For the heroic and unprecedented act of</p>
+  <p><strong>"Logging Her Purchases"</strong></p>
+  <p style="font-size: 16px; color: #888; margin-top: 20px;">
+    Witnessed this 16th day of February, 2026<br>
+    by her extremely impressed partner
+  </p>
+  <div class="seal">🏅</div>
+  <p style="font-size: 12px; color: #aaa; margin-top: 10px;">
+    *This certificate has no monetary value.<br>
+    Much like the effort required to log purchases.
+  </p>
+</div>
+
+<div class="rainbow-hr"></div>
+
+<!-- SARCASM BLOCK 3 -->
+<div class="sarcasm">
+  <p>In conclusion:</p>
+  <p>🌍 One small step for Shannon 🌍</p>
+  <p>🚀 One giant leap for household budgeting 🚀</p>
+</div>
+
+<!-- MARQUEE FINAL -->
+<div class="marquee-top" style="background: linear-gradient(90deg, #0f0, #0ff, #0f0);">
+  <span class="scroll-left">⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐ DID A TASK ⭐</span>
+</div>
+
+<!-- VISITOR COUNTER -->
+<div class="visitor-counter">
+  🖥️ You are visitor number: <span id="counter">000001</span><br>
+  <small>(It's just you. No one else knows about this page. Yet.)</small>
+</div>
+
+<!-- CONSTRUCTION BAR -->
+<div class="construction-bar"></div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Made with ❤️ and an unreasonable amount of sarcasm</p>
+  <p>© 2026 The Shannon Did A Task Foundation</p>
+  <p style="margin-top: 10px; font-size: 11px;">
+    Best viewed with Netscape Navigator 4.0 at 800x600 resolution
+  </p>
+</div>
+
+<script>
+// Falling stars
+function createStarRain() {
+  const container = document.getElementById('starRain');
+  const emojis = ['⭐', '🌟', '✨', '💫', '🏆', '🎉', '🥇', '👑'];
+
+  for (let i = 0; i < 30; i++) {
+    const star = document.createElement('div');
+    star.className = 'falling-star';
+    star.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    star.style.left = Math.random() * 100 + 'vw';
+    star.style.animationDuration = (3 + Math.random() * 5) + 's';
+    star.style.animationDelay = Math.random() * 8 + 's';
+    star.style.fontSize = (20 + Math.random() * 30) + 'px';
+    container.appendChild(star);
+  }
+}
+
+// Music toggle
+let musicPlaying = false;
+function toggleMusic() {
+  const audio = document.getElementById('bgMusic');
+  const btn = document.getElementById('musicBtn');
+  if (musicPlaying) {
+    audio.pause();
+    btn.textContent = '🔊 PLAY THE ANTHEM';
+    musicPlaying = false;
+  } else {
+    audio.play();
+    btn.textContent = '🔇 PAUSE (but why would you)';
+    musicPlaying = true;
+  }
+}
+
+// Fake visitor counter increment
+function animateCounter() {
+  const counter = document.getElementById('counter');
+  let count = 1;
+  setInterval(() => {
+    count++;
+    counter.textContent = String(count).padStart(6, '0');
+  }, 3000);
+}
+
+// Init
+createStarRain();
+animateCounter();
+</script>
+
+</body>
+</html>
